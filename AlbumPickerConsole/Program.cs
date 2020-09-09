@@ -1,12 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace AlbumPickerConsole
 {
     class Program
     {
+        //Main Code
         static void Main(string[] args)
         {
-            //random change
             Console.WriteLine(runQuestion());
             readUserInput();
             ContinueQuestion();
@@ -18,14 +23,17 @@ namespace AlbumPickerConsole
             {
                 case "1":
                     Console.WriteLine("album 1");
+                    loopTitleNames("1");
                     ContinueQuestion();
                     break;
                 case "2":
                     Console.WriteLine("album 2");
+                    loopTitleNames("2");
                     ContinueQuestion();
                     break;
                 case "3":
                     Console.WriteLine("Album 3");
+                    loopTitleNames("3");
                     ContinueQuestion();
                     break;
                 default:
@@ -54,6 +62,15 @@ namespace AlbumPickerConsole
                     break;
                 case "No":
                     Console.WriteLine("Thanks for checking out our albums!");
+                    Environment.Exit(0);
+                    break;
+                case "yes":
+                    runQuestion();
+                    readUserInput();
+                    break;
+                case "no":
+                    Console.WriteLine("Thanks for checking out our albums!");
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("That option does not exist please choose another option.");
@@ -65,6 +82,11 @@ namespace AlbumPickerConsole
 
         static void loopTitleNames(string AlbumName)
         {
+            //String version of JSON
+            WebClient client = new WebClient();
+            string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
+
+            AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
 
         }
     }
