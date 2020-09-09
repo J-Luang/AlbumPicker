@@ -6,6 +6,7 @@ namespace AlbumPickerConsole
     {
         static void Main(string[] args)
         {
+            //random change
             Console.WriteLine(runQuestion());
             readUserInput();
             ContinueQuestion();
