@@ -57,6 +57,7 @@ namespace AlbumPickerConsole
             switch (Console.ReadLine())
             {
                 case "Yes":
+                    //Yes wont print asking question
                     runQuestion();
                     readUserInput();
                     break;
@@ -65,6 +66,7 @@ namespace AlbumPickerConsole
                     Environment.Exit(0);
                     break;
                 case "yes":
+                    //Yes wont print asking question
                     runQuestion();
                     readUserInput();
                     break;
@@ -86,7 +88,7 @@ namespace AlbumPickerConsole
             WebClient client = new WebClient();
             string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
 
-            AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
+            //AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
 
         }
     }
