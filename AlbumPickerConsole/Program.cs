@@ -88,8 +88,32 @@ namespace AlbumPickerConsole
             WebClient client = new WebClient();
             string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
 
-            //AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
+           // AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
+            //Album album = JsonConvert.DeserializeObject<Album>(rawJson);
+           // Console.WriteLine(albumCollection.Alubums.Count);
 
+            List<Album> album = JsonConvert.DeserializeObject<List<Album>>(rawJson);
+
+            foreach(var song in album)
+            {
+                Console.WriteLine(song.id + ' ' + song.title);
+            }
+
+        }
+
+        class Album
+        {
+            int albumId;
+            int id;
+            string title;
+            string url;
+            string thumbnailUrl;
+
+            public int AlbumId { get => albumId; set => albumId = value; }
+            public int Id { get => id; set => id = value; }
+            public string Title { get => title; set => title = value; }
+            public string Url { get => url; set => url = value; }
+            public string ThumbnailUrl { get => thumbnailUrl; set => thumbnailUrl = value; }
         }
     }
 }
