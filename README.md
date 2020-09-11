@@ -6,6 +6,7 @@ Assumptions:
 The person running the code knows how to install the following:
 1. NuGet Package Manager from Visual Studio extentions
 2. Newtonsoft.Json from the Nuget Package Manager
+
 The user has cloned the repository.
 
 After everything is installed, open up Visual Studio and open a Project/Solution open the "AlbumPickerConsole.sln" -> navigate to "Program.cs" -> Run the application by clicking the play button or hit F5 while the code. A few
