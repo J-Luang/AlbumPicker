@@ -10,10 +10,20 @@ Assumptions:
 
 * The user has cloned the repository.
 
+Running in Debugger:
 After everything is installed, open up Visual Studio and open a Project/Solution open the "AlbumPickerConsole.sln" -> navigate to "Program.cs" -> Run the application by clicking the play button or hit F5 while the code. A few
 prompts will show up and will ask you a few questions which is about the app.
 
-If the console app needs an executable just email me at jesselua5@gmail.com and I will publish the solution.
+Publishing/Running Executable:
+Because no one wants to run an unknown executable on their computer for the internet bad guys heres how to publish and run.
+1. Open up the .sln file similar to above.
+2. Right-click on "AlbumPickerConsole" with the c# logo next to it.
+3. Under configuration click the edit icon
+4. Change deployment mode to self-contained
+5. Change target location to desirable location (preferably a folder)
+6. Save then hit publish
+7. Locate and open where the pubish was stored
+8. Open the "AlbumPickerConsole.exe" file and enjoy messing around and breaking it.
 
 
 Notes about the code: 
