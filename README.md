@@ -3,11 +3,12 @@ Welcome to the read me where you will look at the pretty words of an album and i
 A few things before things get running, this is created in Visual Studio 2019 and a few items may be needed.
 
 Assumptions: 
-The person running the code knows how to install the following:
+
+* The person running the code knows how to install the following:
 1. NuGet Package Manager from Visual Studio extentions
 2. Newtonsoft.Json from the Nuget Package Manager
 
-The user has cloned the repository.
+* The user has cloned the repository.
 
 After everything is installed, open up Visual Studio and open a Project/Solution open the "AlbumPickerConsole.sln" -> navigate to "Program.cs" -> Run the application by clicking the play button or hit F5 while the code. A few
 prompts will show up and will ask you a few questions which is about the app.
