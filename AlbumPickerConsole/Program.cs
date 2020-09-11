@@ -90,10 +90,12 @@ namespace AlbumPickerConsole
                     break;
                 case "No":
                     Console.WriteLine("Thanks for checking out the albums!");
+                    Task.Delay(3000).Wait();
                     Environment.Exit(0);
                     break;
                 case "no":
                     Console.WriteLine("Thanks for checking out the albums!");
+                    Task.Delay(3000).Wait();
                     Environment.Exit(0);
                     break;
                 default:
