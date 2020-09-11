@@ -59,33 +59,17 @@ namespace AlbumPickerConsole
                 Console.WriteLine("From what album would you like to pull?");
                 readUserInput();
             }
-
-            switch (Console.ReadLine())
+            else if(Console.ReadLine().Equals("No", StringComparison.OrdinalIgnoreCase))
             {
-                case "Yes":
-                    //Yes wont print asking question
-                    runQuestion();
-                    readUserInput();
-                    break;
-                case "No":
-                    Console.WriteLine("Thanks for checking out our albums!");
-                    Environment.Exit(0);
-                    break;
-                case "yes":
-                    //Yes wont print asking question
-                    runQuestion();
-                    readUserInput();
-                    break;
-                case "no":
-                    Console.WriteLine("Thanks for checking out our albums!");
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("That option does not exist please choose another option.");
-                    ContinueQuestion();
-                    break;
-
+                Console.WriteLine("Thanks for checking out our albums!");
+                Environment.Exit(0);
             }
+            else
+            {
+                Console.WriteLine("That option does not exist please choose another option.");
+                ContinueQuestion();
+            }
+
         }
 
         static void loopTitleNames(string AlbumName)
@@ -95,31 +79,15 @@ namespace AlbumPickerConsole
             string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
 
            // AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
-            //Album album = JsonConvert.DeserializeObject<Album>(rawJson);
+           Album album = JsonConvert.DeserializeObject<Album>(rawJson);
            // Console.WriteLine(albumCollection.Alubums.Count);
-
-            List<Album> album = JsonConvert.DeserializeObject<List<Album>>(rawJson);
 
             foreach(var song in album)
             {
+                if(song.albumId.CompareTo(AlbumName))
                 Console.WriteLine(song.id + ' ' + song.title);
             }
 
-        }
-
-        class Album
-        {
-            int albumId;
-            int id;
-            string title;
-            string url;
-            string thumbnailUrl;
-
-            public int AlbumId { get => albumId; set => albumId = value; }
-            public int Id { get => id; set => id = value; }
-            public string Title { get => title; set => title = value; }
-            public string Url { get => url; set => url = value; }
-            public string ThumbnailUrl { get => thumbnailUrl; set => thumbnailUrl = value; }
         }
     }
 }
