@@ -12,67 +12,73 @@ namespace AlbumPickerConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(runQuestion());
+            runQuestion();
             readUserInput();
-            ContinueQuestion();
+        }
+
+        static void runQuestion()
+        {
+            string Question = "What album would you like to pull? (End with a number)";
+            Console.WriteLine(Question);
         }
 
         static void readUserInput()
         {
-            switch (Console.ReadLine())
+            Console.Write(">");
+            string userInput = Console.ReadLine();
+            string [] words = userInput.Split(" ");
+            string albumStringNumber = words[words.Length - 1];
+
+            try
             {
-                case "1":
-                    Console.WriteLine("album 1");
-                    loopTitleNames(1);
-                    ContinueQuestion();
-                    break;
-                case "2":
-                    Console.WriteLine("album 2");
-                    loopTitleNames(2);
-                    ContinueQuestion();
-                    break;
-                case "3":
-                    Console.WriteLine("Album 3");
-                    loopTitleNames(3);
-                    ContinueQuestion();
-                    break;
-                default:
-                    Console.WriteLine("Your album does not exist. Please choose another album name or hit Q to quit.");
-                    readUserInput();
-                    break;
+                int albumNumber = Int32.Parse(albumStringNumber);
+                loopTitleNames(albumNumber);
+                ContinueQuestion();
+            }
+            catch(FormatException)
+            {
+                Console.WriteLine("That album does not exist.");
+                runQuestion();
+                readUserInput();
+            }
+            catch(OverflowException)
+            {
+                Console.WriteLine("That album number is too large and doesnt exist.");
+                runQuestion();
+                readUserInput();
             }
         }
 
-        static string runQuestion()
+        static void loopTitleNames(int AlbumNumber)
         {
-            string Question;
-            Question = "What album would you like to pull?";
-            return Question;
+            WebClient client = new WebClient();
+            string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
+ 
+            List<Album> album = JsonConvert.DeserializeObject<List<Album>>(rawJson);
+
+            if (album.Exists(x => x.AlbumId == AlbumNumber))
+            {
+                foreach (var item in album)
+                {
+                    if (item.AlbumId.Equals(AlbumNumber))
+                    {
+                        Console.WriteLine("[" + item.Id + "]" + item.Title);
+                    }
+                }
+            }
+            else
+            {
+                Console.Write("That album does not exist please choose another album\n");
+                readUserInput();
+            }
         }
 
         static void ContinueQuestion()
         {
             Console.WriteLine("Would you like pull another album?");
-
-<<<<<<< HEAD
-            if (Console.ReadLine().Equals("Yes", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("From what album would you like to pull?");
-                readUserInput();
-            }
-            else if(Console.ReadLine().Equals("No", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("Thanks for checking out our albums!");
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("That option does not exist please choose another option.");
-                ContinueQuestion();
-            }
-
-=======
-           switch(Console.ReadLine())
+            
+            //Attempted to use if statement to ignore case, lead to bug having to input twice
+            switch(Console.ReadLine())
             {
                 case "Yes":
                     Console.WriteLine("What album would you like to pull?");
@@ -95,35 +101,6 @@ namespace AlbumPickerConsole
                     ContinueQuestion();
                     break;
             }            
->>>>>>> 3d9b306fa2725ea3e75e11f4e61b58f1b0b28c5d
-        }
-
-        static void loopTitleNames(int AlbumNumber)
-        {
-            //String version of JSON
-            WebClient client = new WebClient();
-            string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
-
-<<<<<<< HEAD
-           // AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
-           Album album = JsonConvert.DeserializeObject<Album>(rawJson);
-           // Console.WriteLine(albumCollection.Alubums.Count);
-
-            foreach(var song in album)
-            {
-                if(song.albumId.CompareTo(AlbumName))
-                Console.WriteLine(song.id + ' ' + song.title);
-=======
-            List<Album> album = JsonConvert.DeserializeObject<List<Album>>(rawJson);
-            foreach(var item in album)
-            {
-                if(item.AlbumId.Equals(AlbumNumber))
-                {
-                    Console.WriteLine("["+ item.Id + "]" + item.Title);
-                }
->>>>>>> 3d9b306fa2725ea3e75e11f4e61b58f1b0b28c5d
-            }
-
         }
     }
 }
