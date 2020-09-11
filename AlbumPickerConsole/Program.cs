@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,7 +10,6 @@ namespace AlbumPickerConsole
 {
     class Program
     {
-        //Main Code
         static void Main(string[] args)
         {
             Console.WriteLine(runQuestion());
@@ -23,17 +23,17 @@ namespace AlbumPickerConsole
             {
                 case "1":
                     Console.WriteLine("album 1");
-                    loopTitleNames("1");
+                    loopTitleNames(1);
                     ContinueQuestion();
                     break;
                 case "2":
                     Console.WriteLine("album 2");
-                    loopTitleNames("2");
+                    loopTitleNames(2);
                     ContinueQuestion();
                     break;
                 case "3":
                     Console.WriteLine("Album 3");
-                    loopTitleNames("3");
+                    loopTitleNames(3);
                     ContinueQuestion();
                     break;
                 default:
@@ -54,72 +54,46 @@ namespace AlbumPickerConsole
         {
             Console.WriteLine("Would you like pull another album?");
 
-            if (Console.ReadLine().Equals("Yes", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("From what album would you like to pull?");
-                readUserInput();
-            }
-
-            switch (Console.ReadLine())
+           switch(Console.ReadLine())
             {
                 case "Yes":
-                    //Yes wont print asking question
-                    runQuestion();
+                    Console.WriteLine("What album would you like to pull?");
+                    readUserInput();
+                    break;
+                case "yes":
+                    Console.WriteLine("What album would you like to pull?");
                     readUserInput();
                     break;
                 case "No":
-                    Console.WriteLine("Thanks for checking out our albums!");
+                    Console.WriteLine("Thanks for checking out the albums!");
                     Environment.Exit(0);
                     break;
-                case "yes":
-                    //Yes wont print asking question
-                    runQuestion();
-                    readUserInput();
-                    break;
                 case "no":
-                    Console.WriteLine("Thanks for checking out our albums!");
+                    Console.WriteLine("Thanks for checking out the albums!");
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("That option does not exist please choose another option.");
+                    Console.WriteLine("That option does not exist");
                     ContinueQuestion();
                     break;
-
-            }
+            }            
         }
 
-        static void loopTitleNames(string AlbumName)
+        static void loopTitleNames(int AlbumNumber)
         {
             //String version of JSON
             WebClient client = new WebClient();
             string rawJson = client.DownloadString("https://jsonplaceholder.typicode.com/photos");
 
-           // AlbumCollection albumCollection = JsonConvert.DeserializeObject<AlbumCollection>(rawJson);
-            //Album album = JsonConvert.DeserializeObject<Album>(rawJson);
-           // Console.WriteLine(albumCollection.Alubums.Count);
-
             List<Album> album = JsonConvert.DeserializeObject<List<Album>>(rawJson);
-
-            foreach(var song in album)
+            foreach(var item in album)
             {
-                Console.WriteLine(song.id + ' ' + song.title);
+                if(item.AlbumId.Equals(AlbumNumber))
+                {
+                    Console.WriteLine("["+ item.Id + "]" + item.Title);
+                }
             }
 
-        }
-
-        class Album
-        {
-            int albumId;
-            int id;
-            string title;
-            string url;
-            string thumbnailUrl;
-
-            public int AlbumId { get => albumId; set => albumId = value; }
-            public int Id { get => id; set => id = value; }
-            public string Title { get => title; set => title = value; }
-            public string Url { get => url; set => url = value; }
-            public string ThumbnailUrl { get => thumbnailUrl; set => thumbnailUrl = value; }
         }
     }
 }
