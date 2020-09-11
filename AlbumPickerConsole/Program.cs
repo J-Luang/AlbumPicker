@@ -54,6 +54,12 @@ namespace AlbumPickerConsole
         {
             Console.WriteLine("Would you like pull another album?");
 
+            if (Console.ReadLine().Equals("Yes", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("From what album would you like to pull?");
+                readUserInput();
+            }
+
             switch (Console.ReadLine())
             {
                 case "Yes":
